@@ -7,11 +7,11 @@ const deployTestUniswap: DeployFunction = async function (
   const { deploy, log } = hre.deployments;
   const { deployer } = await hre.getNamedAccounts();
 
-  const TestUniswapV2 = await deploy("TestUniswapV2", {
+  const TestUniswapSwapV2 = await deploy("TestUniswapSwapV2", {
     args: [],
     from: deployer,
   });
-  log(`TestUniswapV2 deployed at: ${TestUniswapV2.address}`);
+  log(`TestUniswapSwapV2 deployed at: ${TestUniswapSwapV2.address}`);
 };
 export default deployTestUniswap;
 deployTestUniswap.tags = ["uniswap"];

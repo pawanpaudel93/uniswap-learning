@@ -1,5 +1,6 @@
 import("dotenv/config");
-import { network } from "hardhat";
+import { Signer } from "ethers";
+import { ethers, network } from "hardhat";
 
 const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
 const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
@@ -12,7 +13,7 @@ const WETH_10 = "0xf4BB2e28688e89fCcE3c0580D37d36A7672E8A9F";
 const DAI_WHALE = "0x075e72a5edf65f0a5f44699c7654c1a76941ddc8";
 const USDC_WHALE = process.env.USDC_WHALE;
 const USDT_WHALE = process.env.USDT_WHALE;
-const WETH_WHALE = process.env.WETH_WHALE;
+const WETH_WHALE = "0x8eb8a3b98659cce290402893d0123abb75e3ab28";
 const WBTC_WHALE = process.env.WBTC_WHALE;
 
 // compound
@@ -26,6 +27,14 @@ export const impersonateAccount = async (address: string) => {
   await network.provider.request({
     method: "hardhat_impersonateAccount",
     params: [address],
+  });
+  return await ethers.getSigner(address);
+};
+
+export const sendEther = (account: Signer, to: string, amount: number) => {
+  return account.sendTransaction({
+    to,
+    value: ethers.utils.parseEther(amount.toString()),
   });
 };
 
